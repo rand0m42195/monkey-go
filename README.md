@@ -1,12 +1,12 @@
-# Monkey Language Interpreter (Go)
+# Monkey Language Interpreter
 
-A Go implementation of the Monkey programming language interpreter, following the "Writing An Interpreter In Go" book by Thorsten Ball.
+A **Go** implementation of the Monkey programming language interpreter, following the "Writing An Interpreter In Go" book by Thorsten Ball.
 
 ## Overview
 
 This project implements the Monkey programming language as described in the book "Writing An Interpreter In Go" by Thorsten Ball. The Monkey language is a simple, dynamically typed programming language with first-class functions, closures, and a C-like syntax.
 
-This Go implementation serves as a companion to the [Rust version](https://github.com/rand0m42195/monkey-rs), allowing developers to compare implementations across different languages and understand the trade-offs between Go and Rust for interpreter development.
+There is a **Rust** implementation of the Monkey language interpreter [here](https://github.com/rand0m42195/monkey-rs).
 
 ## Current Features
 
