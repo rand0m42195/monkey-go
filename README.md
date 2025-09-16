@@ -54,7 +54,7 @@ monky-language/
 
 1. Clone the repository:
 ```bash
-git clone <repository-url>
+git clone https://github.com/rand0m42195/monkey-go.git
 cd monky-language
 ```
 
