@@ -11,7 +11,16 @@ There is a **Rust** implementation of the Monkey language interpreter [here](htt
 ## Current Features
 
 - **Lexer (Tokenizer)**: Converts source code into tokens
-- **REPL (Read-Eval-Print Loop)**: Interactive command-line interface
+- **Parser (Pratt/precedence climbing)**:
+  - Prefix: `-`, `!`
+  - Infix: `+`, `-`, `*`, `/`, `==`, `!=`, `<`, `>` with correct precedence
+  - Grouped expressions: `( ... )`
+  - Function literals: `fn(x, y) { ... }`
+  - Function calls: `add(1, 2)` (with argument lists)
+  - If expressions with optional else
+  - Let/return statements
+- **AST (Abstract Syntax Tree)**: Nodes for programs, statements, expressions (identifiers, integers, booleans, prefix/infix, if, block, function literal, call)
+- **REPL (Read-Eval-Print Loop)**: Interactive CLI (currently token stream output; parser integration is straightforward and planned)
 - **Token Support**: 
   - Identifiers and integers
   - Arithmetic operators (`+`, `-`, `*`, `/`)
@@ -31,6 +40,12 @@ monky-language/
 ├── lexer/              # Lexical analysis
 │   ├── lexer.go
 │   └── lexer_test.go
+├── ast/                # AST node definitions
+│   ├── ast.go
+│   └── ast_test.go
+├── parser/             # Pratt parser and tests
+│   ├── parser.go
+│   └── parser_test.go
 └── repl/               # Interactive REPL
     └── repl.go
 ```
@@ -59,6 +74,8 @@ go run main.go
 ```
 
 You'll see a welcome message and a prompt (`>>`). You can then type Monkey language code and see the tokenized output.
+
+Note: the REPL currently prints tokens. To execute parsing in the REPL, wire the parser as hinted in `repl/repl.go` (uncomment and use `parser.New(l)` and `p.ParseProgram()`).
 
 ### Example Session
 
@@ -121,19 +138,19 @@ go test ./...
 
 ## Development Status
 
-This is an early-stage implementation with:
-- ✅ Lexer (tokenizer) - Complete
-- ✅ REPL interface - Complete
-- 🚧 Parser - Not yet implemented
-- 🚧 Evaluator - Not yet implemented
-- 🚧 AST (Abstract Syntax Tree) - Not yet implemented
+Current status:
+- ✅ Lexer (tokenizer)
+- ✅ AST (major nodes: identifiers, integers, booleans, prefix/infix, blocks, if, function, call)
+- ✅ Parser (Pratt parser with precedence and function calls)
+- ✅ REPL interface (token stream; parser hookup pending by design)
+- 🚧 Evaluator (not implemented yet)
 
 ## Future Roadmap
 
-- [ ] Implement parser to build Abstract Syntax Tree (AST)
-- [ ] Add evaluator to execute the AST
-- [ ] Support for more data types (strings, arrays, hashes)
-- [ ] Error handling and reporting
+- [ ] Implement evaluator to execute the AST
+- [ ] Hook parser into REPL for AST printing/evaluation
+- [ ] Support more data types (strings, arrays, hashes)
+- [ ] Improve error handling and reporting
 - [ ] File execution (not just REPL)
 - [ ] Standard library functions
 
